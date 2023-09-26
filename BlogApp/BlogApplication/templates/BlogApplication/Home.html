@@ -1,35 +1,40 @@
 {% extends "BlogApplication/Base/Base.html" %} {% block container %}
-
 <div class="container my-3">
   <h2 class="text-center">Post List</h2>
 
-  <div class="d-grid gap-2 w-100 flex-container justify-content-end">
-    {% comment %}
-    <a href="{% url 'deleteAll' %}" class="btn btn-danger mx-3 px-5">
-      Clear All
-    </a>
-    {% endcomment %}
-    <a href="{% url 'add' %}" class="btn btn-success mx-3 px-5"> Add Post </a>
-  </div>
-  {% for post in posts %}
-  <div class="container w-50">
-    <div class="row">
-      <div class="col-md-12">
-        <h3 class="text-center">{{ post.title }}</h3>
-        <p>
-          {{ post.content|truncatewords:20 }}<a
-            href="{% url 'details' post.pk %}"
-            class="text-primary"
-          >
-            Read More</a
-          >
-        </p>
-        <p>{{post.pupDate}}</p>
+  <div class="container">
+    <div class="d-grid gap-2 w-75 flex-container justify-content-end mb-3">
+      <a href="{% url 'addPost' %}" class="btn btn-success mx-1">
+        Add Post
+      </a>
+    </div>
+    {% for post in posts %}
+    <div class="container w-50 border rounded p-3 mb-3">
+      <!-- ^^^ Add border and padding classes here -->
+      <div class="row">
+        <div class="col-md-12">
+          <div class="flex-container d-flex mb-3">
+            <h3 class="text-left d-inline-flex w-50">{{ post.title }}</h3>
+            <div class="d-grid gap-2 w-50 d-flex justify-content-end">
+              <a href="{% url 'edit' post.pk %}" class="btn btn-primary mx-1">
+                Edit
+              </a>
+              <a href="{% url 'delete' post.pk %}" class="btn btn-danger mx-1">
+                Delete
+              </a>
+            </div>
+          </div>
+          <p>
+            {{ post.content|truncatewords:20 }}
+            <a href="{% url 'details' post.pk %}" class="text-primary">
+              Read More
+            </a>
+          </p>
+          <p>{{ post.pupDate }}</p>
+        </div>
       </div>
     </div>
-    <div class="d-grid gap-2 w-50">
-      <a href="{% url 'edit' post.pk %}" class="btn btn-primary mx-3">Edit</a>
-    </div>
+    {% endfor %}
   </div>
-  {% endfor %} {% endblock container %}
 </div>
+{% endblock container %}
