@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Task Details</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <h2 class="text-center">{{ post.title }}</h2>
+          <p>{{ post.content }}</p>
+          <p class="text-muted">
+            Posted by {{ post.author }} on {{ post.pupDate }}
+          </p>
+        </div>
+      </div>
+
+      <div class="row mt-4">
+        <div class="col-md-12">
+          <h3>Comments</h3>
+          {% for comment in comments %}
+          <div class="card mb-3">
+            <div class="card-body">
+              <h5 class="card-title">{{ comment.author }}</h5>
+              <p class="card-text">{{ comment.content }}</p>
+              <p class="card-text text-muted">{{ comment.pupDate }}</p>
+            </div>
+          </div>
+          {% empty %}
+          <p>No comments yet.</p>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

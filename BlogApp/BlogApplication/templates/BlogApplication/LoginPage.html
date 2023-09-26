@@ -1,0 +1,16 @@
+{% extends "BlogApplication/Base/Base.html" %} {% block container %}
+{% load crispy_forms_tags %}
+<div class="container py-5 w-50">
+    <h1>Login</h1>
+    <form method="POST">
+        {% csrf_token %}
+        <div>
+            {% crispy form %}
+            <button class="btn btn-primary" type="submit">Login</button>
+        </div>
+    </form>
+    <p class="text-center">
+        Don't have an account? <a href="/register">Create an account</a>.
+    </p>
+</div>
+{% endblock%}

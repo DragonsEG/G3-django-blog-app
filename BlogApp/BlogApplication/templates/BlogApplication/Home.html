@@ -1,12 +1,35 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Blog</title>
-  </head>
-  <body>
-    <h3>Hello, team</h3>
-  </body>
-</html>
+{% extends "BlogApplication/Base/Base.html" %} {% block container %}
+
+<div class="container my-3">
+  <h2 class="text-center">Post List</h2>
+
+  <div class="d-grid gap-2 w-100 flex-container justify-content-end">
+    {% comment %}
+    <a href="{% url 'deleteAll' %}" class="btn btn-danger mx-3 px-5">
+      Clear All
+    </a>
+    {% endcomment %}
+    <a href="{% url 'add' %}" class="btn btn-success mx-3 px-5"> Add Post </a>
+  </div>
+  {% for post in posts %}
+  <div class="container w-50">
+    <div class="row">
+      <div class="col-md-12">
+        <h3 class="text-center">{{ post.title }}</h3>
+        <p>
+          {{ post.content|truncatewords:20 }}<a
+            href="{% url 'details' post.pk %}"
+            class="text-primary"
+          >
+            Read More</a
+          >
+        </p>
+        <p>{{post.pupDate}}</p>
+      </div>
+    </div>
+    <div class="d-grid gap-2 w-50">
+      <a href="{% url 'edit' post.pk %}" class="btn btn-primary mx-3">Edit</a>
+    </div>
+  </div>
+  {% endfor %} {% endblock container %}
+</div>

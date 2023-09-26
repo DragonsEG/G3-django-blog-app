@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Edit Task</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Edit Task</h1>
+    <form method='post'>
+        {% csrf_token %}
+      <div class="form-group">
+        <label for="taskTitle">Task Title</label>
+        {{form.title}}
+      </div>
+      <div class="form-group">
+        <label for="taskDescription">Task Description</label></br>
+        {{form.content}}
+      </div>
+      <button type="submit" class="btn btn-primary">Save Changes</button>
+      <a href = "{%url 'delete' pk=postID%}">Delete This Post</a>
+    </form>
+  </div>
+</body>
+</html>
