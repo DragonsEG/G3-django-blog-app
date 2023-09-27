@@ -1,6 +1,15 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+# from django.contrib.auth.models import AbstractUser, Group
+# class CustomUser(AbstractUser):
+#     USER_TYPES = (
+#         ('writer', 'Writer'),
+#         ('other_type', 'Other Type'),
+#     )
+
+#     user_type = models.CharField(max_length=20, choices=USER_TYPES)
+
 # Create your models here.
 class BlogPost(models.Model):
     author = models.ForeignKey(User, on_delete= models.CASCADE) ## ID (numeric)

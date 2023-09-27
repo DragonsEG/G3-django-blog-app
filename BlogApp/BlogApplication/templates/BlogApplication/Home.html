@@ -31,11 +31,11 @@
         </div>
         <p>
           {{ post.content|truncatewords:20 }} 
-          <a href="{% url 'details' post.pk %}" class="text-primary">
-            Read More
+          <a href="{% url 'details' post.pk %}" class="text-primary d-inline-block">
+            Read More 
           </a>
         </p>
-        <p>{{ post.pubDate }}</p>
+        <p class="d-block text-muted">{{ post.pupDate }}</p>
       </div>
     </div>
   </div>

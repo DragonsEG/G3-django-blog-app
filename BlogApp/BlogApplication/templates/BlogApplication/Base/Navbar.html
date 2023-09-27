@@ -26,10 +26,15 @@
           <li class="nav-item d-block">
             <a class="nav-link active" href="#">Hello {{user.username}}</a>
           </li>
+          
+          {% if user.is_staff %}
+            <li class="nav-item">
+              <a class="nav-link active" href="{% url 'admin:index' %}">Admin Panel</a>
+            </li>
+          {% endif %}
           <li class="nav-item">
             <a class="nav-link active" href="{%url 'userLogout'%}">Logout</a>
           </li>
-        
         {% else %}
           <li class="nav-item">
             <a class="nav-link active" href="{%url 'userLogin'%}">Login</a>

@@ -1,12 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Edit Task</title>
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-</head>
-<body>
+{% extends "BlogApplication/Base/Base.html" %} 
+{% block container %}
   <div class="container">
     <h1>Edit Task</h1>
     <form method='post'>
@@ -23,5 +16,4 @@
       <a href = "{%url 'delete' pk=postID%}" class="btn btn-danger mx-1">Delete This Post</a>
     </form>
   </div>
-</body>
-</html>
+{% endblock %}
