@@ -5,6 +5,7 @@ from django.contrib.auth import login, authenticate
 from . forms import *
 # Create your views here.
 
+
 def loginView(request):
     form = AuthenticationForm()
     if request.method == "POST":
@@ -25,7 +26,6 @@ def loginView(request):
     return render(request, "BlogApplication/LoginPage.html", context={"form": form})
 
 
-
 def index(request):
     context = {'posts': BlogPost.objects.all()}
     return render(request, 'BlogApplication/Home.html', context)
@@ -39,6 +39,7 @@ def index(request):
 
 #     context = {'posts': posts, 'is_author_list': is_author_list}
 #     return render(request, 'BlogApplication/Home.html', context)
+
 
 def renderAdd(request):
     return render(request, 'BlogApplication/Add.html')

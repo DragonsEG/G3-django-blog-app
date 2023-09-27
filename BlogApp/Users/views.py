@@ -10,9 +10,9 @@ def signUp(request):
         form = UserCreationForm(request.POST)
         if form.is_valid():
             user = form.save()  # Save the user account
-            # Add the user to the admin group
-            adminGroup = Group.objects.get(name='Admin')  # Get the Admin group from the database
-            user.groups.add(adminGroup)  # Add the user to the Admin group
+            # Add the user to the Writer group
+            adminGroup = Group.objects.get(name='Writer')  # Get the Writer group from the database
+            user.groups.add(adminGroup)  # Add the user to the Writer group
 
             return redirect('login')
     else:
