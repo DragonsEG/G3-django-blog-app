@@ -1,15 +1,7 @@
-from django.shortcuts import render, redirect, get_object_or_404
-from django.http import HttpResponse
+from django.shortcuts import render, redirect
 from . models import *
-from django.contrib.auth.models import User
-from django.views.generic import DetailView, DeleteView, UpdateView
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.urls import reverse_lazy
-from django.contrib.auth import get_user_model
-from django.contrib.auth.decorators import login_required
-from django.views import View
 from django.contrib.auth.forms import AuthenticationForm
-from django.contrib.auth import login, authenticate, logout
+from django.contrib.auth import login, authenticate
 from . forms import *
 # Create your views here.
 
