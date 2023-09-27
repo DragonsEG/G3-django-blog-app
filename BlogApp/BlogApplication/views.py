@@ -13,28 +13,31 @@ from django.contrib.auth import login, authenticate, logout
 from . forms import *
 # Create your views here.
 
-def loginView(request):
-	form = AuthenticationForm()
-	if request.method == "POST":
-        # Get Prepared Django Login Form and fill it with user's data coming from POST request
-		form = AuthenticationForm(request, data=request.POST)
-		if form.is_valid():
-			username = form.cleaned_data.get('username')
-			password = form.cleaned_data.get('password')
-            # Validate username and password (user credentials)
-			user = authenticate(username=username, password=password)
-            # If the user is authenticated
-			if user is not None:
-                # This User will be logged in and will be
-				login(request, user)
-                # Will be Redirected to Home page showing a success message
-				return redirect("posts")
 
-	return render(request, "BlogApplication/LoginPage.html", context={"form":form})
+def loginView(request):
+    form = AuthenticationForm()
+    if request.method == "POST":
+        # Get Prepared Django Login Form and fill it with user's data coming from POST request
+        form = AuthenticationForm(request, data=request.POST)
+        if form.is_valid():
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')
+# Validate username and password (user credentials)
+            user = authenticate(username=username, password=password)
+# If the user is authenticated
+            if user is not None:
+                # This User will be logged in and will be
+                login(request, user)
+        # Will be Redirected to Home page showing a success message
+                return redirect("posts")
+
+    return render(request, "BlogApplication/LoginPage.html", context={"form": form})
+
 
 def index(request):
     context = {'posts': BlogPost.objects.all()}
     return render(request, 'BlogApplication/Home.html', context)
+
 
 def renderAdd(request):
     return render(request, 'BlogApplication/Add.html')
@@ -51,6 +54,7 @@ def renderAdd(request):
 #         # print(queryset)  # Check the queryset in the console
 #         return queryset
 
+
 def editPost(request, pk):
     # Retrieve the Posts to be updated from the database using its primary key (pk)
     post = BlogPost.objects.get(id=pk)
@@ -65,25 +69,36 @@ def editPost(request, pk):
     context = {'form': form, 'postID': pk}
     return render(request, 'BlogApplication/Edit.html', context)
 
+
 def deletePost(request, pk):
-        obj = BlogPost.objects.get(id=pk)
-        obj.delete()
-        return redirect("posts")
+    obj = BlogPost.objects.get(id=pk)
+    obj.delete()
+    return redirect("posts")
 
 #     # if request.user.is_authenticated:
 #     #     user = request.user
 #     # Get the referenced user based on user_id
 
+
 def addPost(request):
-    context = {'success' : False}
-    if request.method =='POST':
+    context = {'success': False}
+    if request.method == 'POST':
         _title = request.POST['title']
         _content = request.POST['content']
-        ins = BlogPost(title=_title, content=_content, author = request.user)
+        ins = BlogPost(title=_title, content=_content, author=request.user)
         ins.save()
-        context = {'success' : True}
-    return render(request, 'BlogApplication/Add.html',context)
+        context = {'success': True}
+    return render(request, 'BlogApplication/Add.html', context)
 
+
+def addComment(request, pk):
+    post = BlogPost.objects.get(id=pk)
+    comments = Comment.objects.filter(blogPostID=post)
+    if request.method == 'POST':
+        _content = request.POST['content']
+        ins = Comment(content=_content, author=request.user, blogPostID=post)
+        ins.save()
+    return render(request, 'BlogApplication/Details.html', {'post': post, 'comments': comments})
 
 # class Details(DetailView):
 #     model = BlogPost
@@ -114,9 +129,11 @@ def addPost(request):
 #     }
 
 #     return render(request, 'BlogApplication/Details.html', context)
+
+
 def postDetails(request, pk):
     # Retrieve the specific BlogPost object by its primary key or return a 404 error if it doesn't exist
     post = BlogPost.objects.get(id=pk)
-    comments = Comment.objects.filter(blogPostID = post)
-    context = {'post': post,'comments': comments}
+    comments = Comment.objects.filter(blogPostID=post)
+    context = {'post': post, 'comments': comments}
     return render(request, 'BlogApplication/Details.html', context)

@@ -10,11 +10,15 @@
     />
   </head>
   <body>
-    <div class="container d-flex flex-column justify-content-center align-items-center">
+    <div
+      class="container d-flex flex-column justify-content-center align-items-center"
+    >
       <div class="row">
-        <div class="col-md-12 d-flex justify-content-center align-items-center flex-column">
+        <div
+          class="col-md-12 d-flex justify-content-center align-items-center flex-column"
+        >
           <h2 class="text-center">{{ post.title }}</h2>
-          <p class=" text-center w-75">{{ post.content }}</p>
+          <p class="text-center w-75">{{ post.content }}</p>
           <p class="text-muted text-center w-75">
             Posted by {{ post.author }} on {{ post.pupDate }}
           </p>
@@ -24,26 +28,32 @@
       <div class="row mt-4 w-75">
         <div class="col-md-12">
           <div class="flex-container d-flex mb-3">
-            <h3 class="text-left d-inline-flex w-50">Comments</h3>
-            <div class="d-grid gap-2 w-50 d-flex justify-content-end">
-              <a href="{% url 'edit' post.pk %}" class="btn btn-success mx-3">
-                Add Comment
-              </a>
+              <h3 class="text-left d-inline-flex w-50">Comments</h3>
+              <div class="container my-3">
+                <h2 class="text-center">Add a Comment</h2>
+                <form method="post" action="{% url 'addComment' post.pk %}">
+                  {% csrf_token %}
+                  {{ form.as_p }}
+                  <textarea id="comment-input" name="content" class="form-control mx-3" rows="3" placeholder="Enter your comment..."></textarea>
+                  <button type="submit" class="btn btn-success">Add Comment</button>
+              </form>
             </div>
           </div>
-          {% for comment in comments %}
-          <div class="card mb-3">
-            <div class="card-body">
-              <h5 class="card-title">{{ comment.author }}</h5>
-              <p class="card-text">{{ comment.content }}</p>
-              <p class="card-text text-muted">{{ comment.pupDate }}</p>
-            </div>
-          </div>
-          {% empty %}
-          <p>No comments yet.</p>
-          {% endfor %}
-        </div>
       </div>
+
+            {% for comment in comments %}
+            <div class="card mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">{{ comment.author }}</h5>
+                    <p class="card-text">{{ comment.content }}</p>
+                    <p class="card-text text-muted">{{ comment.pupDate }}</p>
+                </div>
+            </div>
+            {% empty %}
+            <p>No comments yet.</p>
+            {% endfor %}
+        </div>
     </div>
+
   </body>
 </html>
