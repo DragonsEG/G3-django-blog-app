@@ -38,6 +38,15 @@ def index(request):
     context = {'posts': BlogPost.objects.all()}
     return render(request, 'BlogApplication/Home.html', context)
 
+# def index(request):
+#     posts = BlogPost.objects.all()
+#     current_user = request.user  # Get the current user
+
+#     # Create a list to store whether the current user is the author for each post
+#     is_author_list = [post.author == current_user for post in posts]
+
+#     context = {'posts': posts, 'is_author_list': is_author_list}
+#     return render(request, 'BlogApplication/Home.html', context)
 
 def renderAdd(request):
     return render(request, 'BlogApplication/Add.html')

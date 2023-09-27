@@ -1,63 +1,58 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Task Details</title>
-    <link
-      rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
-    />
-  </head>
-  <body class="container d-flex flex-column align-items-center justify-content-center">
-    <div
-      class="container d-flex flex-column justify-content-center align-items-center"
-    >
-      <div class="row">
-        <div
-          class="col-md-12 d-flex justify-content-center align-items-center flex-column"
-        >
-          <h2 class="text-center">{{ post.title }}</h2>
-          <p class="text-center w-75">{{ post.content }}</p>
-          <p class="text-muted text-center w-75">
-            Posted by {{ post.author }} on {{ post.pupDate }}
-          </p>
-        </div>
-      </div>
-
-      <div class="row mt-4 w-75">
-        <div class="col-md-12">
-          <div class="flex-container d-flex mb-3">
-              <h3 class="text-left d-inline-flex w-50 ml-5">Comments</h3>
-              <div class="container my-3">
-                {% comment %} <h2 class="text-center">Add a Comment</h2> {% endcomment %}
-                
-            </div>
+{% extends "BlogApplication/Base/Base.html" %}
+ {% block container %}
+    <div class="container d-flex flex-column align-items-center justify-content-center">
+      <div
+        class="container d-flex flex-column justify-content-center align-items-center"
+      >
+        <div class="row mt-3">
+          <div
+            class="col-md-12 d-flex justify-content-center align-items-center flex-column"
+          >
+            <h2 class="text-center">{{ post.title }}</h2>
+            <p class="text-center w-75">{{ post.content }}</p>
+            <p class="text-muted text-center w-75">
+              Posted by {{ post.author }} on {{ post.pupDate }}
+            </p>
           </div>
-      </div>
-        <div class="d-flex flex-column justify-content-center align-items-center w-75 ml-5">
-            {% for comment in comments %}
-            <div class="card mb-3 w-100">
-                <div class="card-body">
-                    <h5 class="card-title">{{ comment.author }}</h5>
-                    <p class="card-text">{{ comment.content }}</p>
-                    <p class="card-text text-muted">{{ comment.pupDate }}</p>
+        </div>
+  
+        <div class="row mt-3 w-50">
+          <div class="col-md-12">
+            <div class="flex-container d-flex mb-3">
+                <h3 class="text-left d-inline-flex w-50 ml-5">Comments</h3>
+                <div class="container my-3">
+                  {% comment %} <h2 class="text-center">Add a Comment</h2> {% endcomment %}
+                  
                 </div>
             </div>
-            {% empty %}
-            <p>No comments yet.</p>
-            {% endfor %}
-            <form method="post" action="{% url 'addComment' post.pk %}" class="w-100">
-              {% csrf_token %}
-              {{ form.as_p }}
-              <div class="d-flex">
-                <textarea id="comment-input" name="content" class="form-control  mb-3 w-75" rows="1" placeholder="Enter your comment..."></textarea>
-                
-                <button type="submit" class="btn btn-success ml-3 h-50">Add Comment</button>
+          </div>
+          <div class="d-flex flex-column justify-content-center align-items-center w-100 ml-5">
+              {% for comment in comments %}
+              <div class="card mb-3 w-100">
+                  <div class="card-body">
+                      <h5 class="card-title">{{ comment.author }}</h5>
+                      <p class="card-text">{{ comment.content }}</p>
+                      <p class="card-text text-muted">{{ comment.pupDate }}</p>
+                  </div>
               </div>
-          </form>
-        </div>
+              {% empty %}
+              <p>No comments yet.</p>
+              {% endfor %}
+              {% if request.user.is_authenticated %}
+              <form method="post" action="{% url 'addComment' post.pk %}" class="w-100">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <div class="d-flex justify-content-between">
+                  <textarea id="comment-input" name="content" class="form-control  mb-3 mr-auto w-75" rows="1" placeholder="Enter your comment..."></textarea>
+                  <div>
+                    <button type="submit" class="btn btn-success ml-1  h-75">Add Comment</button>
+                  </div>
+                </div>
+            </form>
+            {% endif %}
+          </div>
+      </div>
+
     </div>
 
-  </body>
-</html>
+{% endblock %}
