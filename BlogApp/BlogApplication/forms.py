@@ -7,6 +7,10 @@ class BlogPostForm(forms.ModelForm):
         model = BlogPost
         fields = ['title', 'content']
 
+class BlogCategoryForm(forms.ModelForm):
+    class Meta:
+        model = BlogCategory
+        fields = ['name', 'description']
 
 class CommentForm(forms.ModelForm):
     class Meta:

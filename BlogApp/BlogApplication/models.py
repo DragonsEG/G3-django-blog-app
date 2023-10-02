@@ -1,22 +1,12 @@
 from django.db import models
 from django.contrib.auth.models import User
 
-# from django.contrib.auth.models import AbstractUser, Group
-# class CustomUser(AbstractUser):
-#     USER_TYPES = (
-#         ('writer', 'Writer'),
-#         ('other_type', 'Other Type'),
-#     )
-
-#     user_type = models.CharField(max_length=20, choices=USER_TYPES)
-
-# Create your models here.
 
 class BlogCategory(models.Model):
     name = models.CharField(max_length=200)
-    description = models.TextField(blank=True)
+    description = models.TextField(null=True, blank=True)
 
-    def _str_(self):
+    def __str__(self):
         return self.name
 
 class BlogPost(models.Model):
@@ -41,6 +31,8 @@ class Comment(models.Model):
 
     def __str__(self):
         return f"Comment by {self.author.username}"
+
+
 
 
 

@@ -5,9 +5,17 @@
   <div class="container">
     <div class="d-grid gap-2 w-75 flex-container justify-content-end mb-3">
       {% if request.user.is_authenticated %}
-      <a href="{% url 'addPost' %}" class="btn btn-success mx-1">
-        Add Post
-      </a>
+      <div class="d-flex">
+        <a href="{% url 'addPost' %}" class="btn btn-success mx-1">
+          Create Company
+        </a>
+        <a href="{% url 'addCategory' %}" class="btn btn-success mx-1">
+          Add Category
+        </a>
+        <a href="{% url 'addPost' %}" class="btn btn-success mx-1">
+          Add Post
+        </a>
+      </div>
       {% endif %}
     </div>
 
