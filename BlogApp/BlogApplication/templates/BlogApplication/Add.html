@@ -1,7 +1,7 @@
 {% extends "BlogApplication/Base/Base.html" %} {% block container %}
     {% if success %}
         <div class="alert alert-success alert-dismissible fade show" role="alert">
-            <strong class="text-center">Success</strong> :Your task have been added to the list
+            <strong class="text-center">Success</strong> :Your task has been added to the list
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     {% endif %}
@@ -34,7 +34,8 @@
             rows="10"
           ></textarea>
         </div>
-        <button type="submit" class="btn btn-primary">Add</button>
+        <input type="submit" class="btn btn-primary" name="action" value="Add">
+        <input type="submit" class="btn btn-danger"  name="action" value="Save Draft">
       </form>
     </div>
 

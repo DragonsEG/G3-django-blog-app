@@ -84,13 +84,30 @@ def deletePost(request, pk):
 
 def addPost(request):
     context = {'success': False}
+
     if request.method == 'POST':
         _title = request.POST['title']
         _content = request.POST['content']
-        ins = BlogPost(title=_title, content=_content, author=request.user)
-        ins.save()
+
+        if request.POST.get('action') == 'Add':
+            ins = BlogPost(title=_title, content=_content, author=request.user)
+            ins.save()
+
+        elif request.POST.get('action') == 'Save Draft':
+            ins = BlogPost(title=_title, content=_content, author=request.user, draft=True)
+            ins.save()
+
         context = {'success': True}
+        
     return render(request, 'BlogApplication/Add.html', context)
+
+    
+def publishPost(request, pk):
+    
+    post = BlogPost.objects.get(id=pk)
+    post.draft = False
+    post.save()
+    return redirect('posts')
 
 
 def addComment(request, pk):
