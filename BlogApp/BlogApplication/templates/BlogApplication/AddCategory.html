@@ -1,41 +1,43 @@
-{% extends "BlogApplication/Base/Base.html" %} {% block container %}
-    {% if success %}
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
-            <strong class="text-center">Success</strong>: Your Category has been Created
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-    {% endif %}
-    <div class="container my-3">
-      <h2 class="text-center">
-        Add Category
-      </h2>
+{% extends "BlogApplication/Base/Base.html" %}
+{% block container %}
+{% if success %}
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+  <strong class="text-center">Success</strong>: Your Category has been Created
+  <button
+    type="button"
+    class="btn-close"
+    data-bs-dismiss="alert"
+    aria-label="Close"
+  ></button>
+</div>
+{% endif %}
+<div class="container my-3">
+  <h2 class="text-center">Add Category</h2>
 
-      <form method="post" action = "{% url 'addCategory' %}">
-        {% csrf_token %}
-        <div class="mb-3">
-          <label for="title" class="form-label">
-            Category Name
-          </label>
-          <input
-            type="text"
-            class="form-control"
-            id="name"
-            name="name"
-            aria-describedby="emailHelp"
-          />
-        </div>
-        <div class="mb-3">
-          <label for="content" class="form-label">Content</label>
-          <textarea
-            class="form-control"
-            id="description"
-            name="description"
-            cols="30"
-            rows="10"
-          ></textarea>
-        </div>
-        <input type="submit" class="btn btn-primary" name="action" value="Add">
-      </form>
+  <form method="post" action="{% url 'addCategory' %}">
+    {% csrf_token %}
+    <div class="mb-3">
+      <label for="title" class="form-label"> Category Name </label>
+      <input
+        type="text"
+        class="form-control"
+        id="name"
+        name="name"
+        aria-describedby="emailHelp"
+      />
     </div>
+    <div class="mb-3">
+      <label for="content" class="form-label">Description</label>
+      <textarea
+        class="form-control"
+        id="description"
+        name="description"
+        cols="30"
+        rows="10"
+      ></textarea>
+    </div>
+    <input type="submit" class="btn btn-primary" name="action" value="Add" />
+  </form>
+</div>
 
-    {% endblock %}
+{% endblock %}

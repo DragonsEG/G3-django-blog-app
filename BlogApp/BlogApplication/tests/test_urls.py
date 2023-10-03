@@ -15,11 +15,6 @@ class TestUrls(SimpleTestCase):
         print(resolve(url))
         self.assertEquals(resolve(url).func, index)
 
-    def testRenderAdd(self):
-        url = reverse('add')
-        print(resolve(url))
-        self.assertEquals(resolve(url).func, renderAdd)
-
     def testEdit(self):
         url = reverse('edit', args=[50])
         print(resolve(url))

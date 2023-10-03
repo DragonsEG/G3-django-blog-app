@@ -13,16 +13,12 @@
 </div>
 {% endif %}
 <div class="container my-3">
-  <h2 class="text-center">
-    Add task
-  </h2>
+  <h2 class="text-center">Add task</h2>
 
   <form method="post" action="{% url 'addPost' %}">
     {% csrf_token %}
     <div class="mb-3">
-      <label for="title" class="form-label">
-        Task Title
-      </label>
+      <label for="title" class="form-label"> Task Title </label>
       <input
         type="text"
         class="form-control"

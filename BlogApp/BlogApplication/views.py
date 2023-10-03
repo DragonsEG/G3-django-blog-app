@@ -9,7 +9,7 @@ from . forms import *
 def loginView(request):
     form = AuthenticationForm()
     if request.method == "POST":
-        # Get Prepared Django Login Form and fill it with user's data coming from POST request
+        # Get Django Login Form and fill it with user's data coming from POST request
         form = AuthenticationForm(request, data=request.POST)
         if form.is_valid():
             username = form.cleaned_data.get('username')
@@ -29,7 +29,6 @@ def loginView(request):
 def index(request):
     context = {'posts': BlogPost.objects.all()}
     return render(request, 'BlogApplication/Home.html', context)
-
 
 
 def editPost(request, pk):
@@ -65,12 +64,14 @@ def addPost(request):
             ins.save()
 
         elif request.POST.get('action') == 'Save Draft':
-            ins = BlogPost(title=_title, content=_content, author=request.user, draft=True)
+            ins = BlogPost(title=_title, content=_content,
+                           author=request.user, draft=True)
             ins.save()
 
         context = {'success': True}
-        
+
     return render(request, 'BlogApplication/Add.html', context)
+
 
 def addCategory(request):
     context = {'success': False}
@@ -84,15 +85,16 @@ def addCategory(request):
             ins.save()
 
         context = {'success': True}
-        
+
     return render(request, 'BlogApplication/AddCategory.html', context)
+
 
 def deleteCategory(request, pk):
     obj = BlogCategory.objects.get(id=pk)
     obj.delete()
     return redirect("posts")
 
-    
+
 def editCategory(request, pk):
 
     category = BlogCategory.objects.get(id=pk)
@@ -108,7 +110,6 @@ def editCategory(request, pk):
     return render(request, 'BlogApplication/EditCategory.html', context)
 
 
-    
 def publishPost(request, pk):
 
     post = BlogPost.objects.get(id=pk)
@@ -125,6 +126,7 @@ def addComment(request, pk):
         ins = Comment(content=_content, author=request.user, blogPostID=post)
         ins.save()
     return render(request, 'BlogApplication/Details.html', {'post': post, 'comments': comments})
+
 
 def postDetails(request, pk):
     post = BlogPost.objects.get(id=pk)
