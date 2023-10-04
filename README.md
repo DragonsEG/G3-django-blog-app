@@ -430,4 +430,7 @@ The appendix section includes additional resources and links to further enhance 
 
 [**https://www.youtube.com/watch?v=3P78wNcEviI&list=PLknwEmKsW8OtK_n48UOuYGxJPbSFrICxm&index=35&ab_channel=AbdelrahmanGamal**](https://www.youtube.com/watch?v=3P78wNcEviI&list=PLknwEmKsW8OtK_n48UOuYGxJPbSFrICxm&index=35&ab_channel=AbdelrahmanGamal)
 
+**updated docx of the documintation:**
+[**https://docs.google.com/document/d/1Y4cRlhNgY_zoj3rJbez8efpqPk0fz2F3DGMZdoTqp9o/edit#heading=h.3at9u9s4e0vp**](https://docs.google.com/document/d/1Y4cRlhNgY_zoj3rJbez8efpqPk0fz2F3DGMZdoTqp9o/edit#heading=h.3at9u9s4e0vp).
+
 
