@@ -51,6 +51,11 @@ def deletePost(request, pk):
     obj.delete()
     return redirect("posts")
 
+def viewCategories(request):
+    context = {'categories': BlogCategory.objects.all()}
+    print(BlogCategory.objects.all())
+    print("sadassssssssssssssssssssssssssss")
+    return render(request, 'BlogApplication/Add.html', context)
 
 def addPost(request):
     context = {'success': False}
@@ -58,6 +63,7 @@ def addPost(request):
     if request.method == 'POST':
         _title = request.POST['title']
         _content = request.POST['content']
+        # _category = request.POST['category']
 
         if request.POST.get('action') == 'Add':
             ins = BlogPost(title=_title, content=_content, author=request.user)

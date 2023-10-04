@@ -19,8 +19,8 @@
       {% endif %}
     </div>
 
-    {% for post in posts %} {% if post.draft and request.user.is_authenticated
-    and post.author == request.user %}
+    {% for post in posts %}
+    {% if post.draft and request.user.is_authenticated and post.author == request.user %}
     <div class="container w-50 border rounded p-3 mb-3">
       <div class="row">
         <div class="col-md-12">
@@ -71,8 +71,7 @@
           <div class="flex-container d-flex mb-3">
             <h3 class="text-left d-inline-flex w-50">{{ post.title }}</h3>
             <div class="d-grid gap-2 w-50 d-flex justify-content-end">
-              {% if request.user.is_authenticated and post.author ==
-              request.user %}
+              {% if request.user.is_authenticated and post.author == request.user %}
 
               <div>
                 <a href="{% url 'edit' post.pk %}" class="btn btn-primary mx-1">
@@ -102,7 +101,8 @@
         </div>
       </div>
     </div>
-    {% endif %} {% endfor %} {% comment %} {% for post in posts %}
+    {% endif %}
+    {% endfor %} {% comment %} {% for post in posts %}
     <div class="container w-50 border rounded p-3 mb-3">
       <!-- ^^^ Add border and padding classes here -->
       <div class="row">
