@@ -27,10 +27,41 @@ def loginView(request):
 
     return render(request, "BlogApplication/LoginPage.html", context={"form": form})
 
-
+#####Posts
 def index(request):
     context = {'posts': BlogPost.objects.all()}
     return render(request, 'BlogApplication/Home.html', context)
+
+
+def addPost(request):
+    context = {'success': False}
+    categories = BlogCategory.objects.all()  # Get all available categories
+
+    if request.method == 'POST':
+        form = BlogPostForm(request.POST)
+
+        if form.is_valid():
+            _title = form.cleaned_data['title']
+            _content = form.cleaned_data['content']
+            _category_ids = request.POST.getlist('category')  # Get selected category IDs
+
+            if request.POST.get('action') == 'Add':
+                ins = BlogPost(title=_title, content=_content, author=request.user)
+            elif request.POST.get('action') == 'Save Draft':
+                ins = BlogPost(title=_title, content=_content, author=request.user, draft=True)
+            
+            ins.save()
+            ins.category.set(_category_ids)  # Use set() to assign categories
+
+            context = {'success': True, 'categories': categories}
+
+    else:
+        form = BlogPostForm()  # Create a new form instance for rendering
+
+    context['form'] = form  # Include the form in the context
+    context['categories'] = categories
+
+    return render(request, 'BlogApplication/Add.html', context)
 
 
 def editPost(request, pk):
@@ -56,35 +87,24 @@ def deletePost(request, pk):
     obj.delete()
     return redirect("posts")
     # else:
-    return HttpResponseForbidden("You are not authorized to delete this post.")
+    # return HttpResponseForbidden("You are not authorized to delete this post.")
 
 
-def addPost(request):
-    context = {'success': False}
-
-    if request.method == 'POST':
-        _title = request.POST['title']
-        _content = request.POST['content']
-        _category = request.POST['category']
-
-        if request.POST.get('action') == 'Add':
-            ins = BlogPost(title=_title, content=_content, author=request.user)
-            if _category:  # Check if a category was selected
-                ins.category = _category
-            ins.save()
-
-        elif request.POST.get('action') == 'Save Draft':
-            ins = BlogPost(title=_title, content=_content,
-                           author=request.user, draft=True)
-            if _category:  # Check if a category was selected
-                ins.category = _category
-            ins.save()
-
-        context = {'success': True}
-
-    return render(request, 'BlogApplication/Add.html', context)
+def postDetails(request, pk):
+    post = BlogPost.objects.get(id=pk)
+    comments = Comment.objects.filter(blogPostID=post)
+    context = {'post': post, 'comments': comments}
+    return render(request, 'BlogApplication/Details.html', context)
 
 
+def publishPost(request, pk):
+
+    post = BlogPost.objects.get(id=pk)
+    post.draft = False
+    post.save()
+    return redirect('posts')
+
+#####Categories
 def showCategories(request):
     context = {'categories': BlogCategory.objects.all()}
     return render(request, 'BlogApplication/ShowCategories.html', context)
@@ -94,15 +114,6 @@ def chooseCategory(request):
     context = {'categories': BlogCategory.objects.all()}
     print(BlogCategory.objects.all())
     return render(request, 'BlogApplication/Add.html', context)
-
-
-def createCompany(request):
-    if request.method == 'POST':
-        _name = request.POST['name']
-        _manager = request.user
-        ins = Company(name=_name, manager=_manager)
-        ins.save()
-    return render(request, 'BlogApplication/CreateCompany.html')
 
 
 def addCategory(request):
@@ -144,15 +155,7 @@ def editCategory(request, pk):
     # else:
     # return HttpResponseForbidden("You are not authorized to edit this category.")
 
-
-def publishPost(request, pk):
-
-    post = BlogPost.objects.get(id=pk)
-    post.draft = False
-    post.save()
-    return redirect('posts')
-
-
+#####Comments
 def addComment(request, pk):
     post = BlogPost.objects.get(id=pk)
     comments = Comment.objects.filter(blogPostID=post)
@@ -162,9 +165,23 @@ def addComment(request, pk):
         ins.save()
     return render(request, 'BlogApplication/Details.html', {'post': post, 'comments': comments})
 
+#####Companies
+def createCompany(request):
+    if request.method == 'POST':
+        _name = request.POST['name']
+        _manager = request.user
+        ins = Company(name=_name, manager=_manager)
+        ins.save()
+    return render(request, 'BlogApplication/CreateCompany.html')
 
-def postDetails(request, pk):
-    post = BlogPost.objects.get(id=pk)
-    comments = Comment.objects.filter(blogPostID=post)
-    context = {'post': post, 'comments': comments}
-    return render(request, 'BlogApplication/Details.html', context)
+
+def showCompanies(request):
+    context = {'companies': Company.objects.all()}
+    return render(request, 'BlogApplication/Companies.html', context)
+
+
+def companyDetails(request, pk):
+    company = Company.objects.get(id=pk)
+    writers = User.objects.filter(company=company)
+    context = {'company': company, 'writers': writers}
+    return render(request, 'BlogApplication/CompanyDetails.html', context)

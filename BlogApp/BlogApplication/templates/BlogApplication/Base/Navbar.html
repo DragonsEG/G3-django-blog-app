@@ -1,55 +1,44 @@
 <nav class="navbar navbar-dark navbar-expand-lg bg-dark">
   <div class="container-fluid">
     <a class="navbar-brand" href="/">Navbar</a>
-    <button
-      class="navbar-toggler"
-      type="button"
-      data-bs-toggle="collapse"
-      data-bs-target="#navbarSupportedContent"
-      aria-controls="navbarSupportedContent"
-      aria-expanded="false"
-      aria-label="Toggle navigation"
-    >
-      <span class="navbar-toggler-icon"></span>
-    </button>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul
-        class="navbar-nav me-auto mb-2 mb-lg-0 d-flex justify-content-between w-100"
-      >
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0 d-flex justify-content-between w-100">
         <div class="w-50 d-flex">
           <li class="nav-item">
-            <a class="nav-link active" href="{%url 'posts'%}">Posts</a>
+            <a class="nav-link active" href="{% url 'posts' %}">Posts</a>
           </li>
-          {% if request.user.is_superuser %}
+          {% if request.user.is_authenticated %}
             <li class="nav-item">
-              <a class="nav-link " href="{%url 'categories'%}">Categories</a>
+              <a class="nav-link" href="{% url 'categories' %}">Categories</a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'companies' %}">Companies</a>
             </li>
           {% endif %}
         </div>
         <div class="w-100 d-flex justify-content-end align-items-end">
           {% if request.user.is_authenticated %}
+            <li class="nav-item d-block">
+              <a class="nav-link active" href="#">Hello {{ user.username }}</a>
+            </li>
 
-          <li class="nav-item d-block">
-            <a class="nav-link active" href="#">Hello {{user.username}}</a>
-          </li>
-
-          {% if user.is_staff %}
-          <li class="nav-item">
-            <a class="nav-link active" href="{% url 'admin:index' %}"
-              >Admin Panel</a
-            >
-          </li>
-          {% endif %}
-          <li class="nav-item">
-            <a class="nav-link active" href="{%url 'userLogout'%}">Logout</a>
-          </li>
+            {% if user.is_staff %}
+              <li class="nav-item">
+                <a class="nav-link active" href="{% url 'admin:index' %}">Admin Panel</a>
+              </li>
+            {% endif %}
+            <li class="nav-item">
+              <a class="nav-link active" href="{% url 'userLogout' %}">Logout</a>
+            </li>
           {% else %}
-          <li class="nav-item">
-            <a class="nav-link active" href="{%url 'login'%}">Login</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link active" href="{%url 'userSignUp'%}">Register</a>
-          </li>
+            <li class="nav-item">
+              <a class="nav-link active" href="{% url 'login' %}">Login</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" href="{% url 'userSignUp' %}">Register</a>
+            </li>
           {% endif %}
         </div>
       </ul>

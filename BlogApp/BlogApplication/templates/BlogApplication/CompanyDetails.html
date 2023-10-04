@@ -1,0 +1,21 @@
+{% extends 'BlogApplication/Base/Base.html' %}
+{% block container %}
+<div class="container ">
+    <div class="w-100 my-4 d-flex flex-column justify-content-center align-items-center">
+        <div class="w-50 d-flex justify-content-between align-items-center">
+            <h2 class="my-3">
+                {{company.name}}
+            </h2>
+        </div>
+    </div>
+    <ul class="my-4 w100 d-flex flex-column justify-content-center align-items-center">
+    {% for writer in writers  %}
+
+        <li class="w-50 my-2 d-flex justify-content-between">
+            <h5 class ='mb-4'>{{forloop.counter}}- {{writer.username}} </h5>
+        </li>
+
+    {% endfor %}
+    </ul>
+</div>
+{% endblock %}

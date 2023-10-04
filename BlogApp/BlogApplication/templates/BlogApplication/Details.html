@@ -1,5 +1,5 @@
 {% extends "BlogApplication/Base/Base.html" %}
- {% block container %}
+{% block container %}
     <div class="container d-flex flex-column align-items-center justify-content-center">
       <div
         class="container d-flex flex-column justify-content-center align-items-center"
@@ -12,6 +12,9 @@
             <p class="text-center w-75">{{ post.content }}</p>
             <p class="text-muted text-center w-75">
               Posted by {{ post.author }} on {{ post.pupDate }}
+            </p>
+            <p class="text-muted text-center w-75">
+              Category: {{ post.category.first.name }}
             </p>
           </div>
         </div>
