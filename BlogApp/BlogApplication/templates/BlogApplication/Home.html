@@ -1,4 +1,4 @@
-{% extends 'BlogApplication/Base/Base.html' %} 
+{% extends 'BlogApplication/Base/Base.html' %}
 {% block container %}
   <div class="container my-3">
     <h2 class="text-center">Post List</h2>
@@ -7,7 +7,7 @@
       <div class="d-grid gap-2 w-75 flex-container justify-content-end mb-3">
         {% if request.user.is_authenticated %}
           <div class="d-flex">
-            <a href="{% url 'addPost' %}" class="btn btn-success mx-1">Create Company</a>
+            <a href="{% url 'createCompany' %}" class="btn btn-success mx-1">Create Company</a>
             {% comment %} <a href="{% url 'addCategory' %}" class="btn btn-success mx-1">Add Category</a> {% endcomment %}
             {% comment %} {% if request.user.is_superuser %}
               <a href="{% url 'categories' %}" class="btn btn-success mx-1">Show Categories</a>

@@ -3,7 +3,7 @@
 {% if success %}
 <div class="alert alert-success alert-dismissible fade show" role="alert">
   <strong class="text-center">Success</strong>
-  :Your task has been added to the list
+  :Your post has been added to the list
   <button
     type="button"
     class="btn-close"
@@ -14,14 +14,14 @@
 {% endif %}
 <div class="container my-3">
   <h2 class="text-center">
-    Add task
+    Add Post
   </h2>
 
   <form method="post" action="{% url 'addPost' %}">
     {% csrf_token %}
     <div class="mb-3">
       <label for="title" class="form-label">
-        Task Title
+        Post Title
       </label>
       <input
         type="text"
@@ -42,8 +42,8 @@
       ></textarea>
     </div>
     <div class="mb-3">
-      <label for="category" class="form-label">Category</label>
-      <select class="form-select" id="category" name="category">
+      <label class="form-label">Category</label>
+      <select class="form-select" name="category">
           <option value="" selected>Select a Category</option>
           {% for category in categories %}
               <option value="{{ category.id }}">{{ category.name }}</option>

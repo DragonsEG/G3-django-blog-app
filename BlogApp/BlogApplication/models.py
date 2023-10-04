@@ -9,8 +9,10 @@ class BlogCategory(models.Model):
 
     def __str__(self):
         return self.name
+
     class Meta:
-        verbose_name_plural = "Blog Categories" #For Admin Panel
+        verbose_name_plural = "Blog Categories"  # For Admin Panel
+
 
 class BlogPost(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE)  # ID (numeric)
@@ -23,7 +25,7 @@ class BlogPost(models.Model):
 
     class Meta:
         ordering = ['-pupDate']
-        verbose_name_plural = "Blog Posts" #For Admin Panel
+        verbose_name_plural = "Blog Posts"  # For Admin Panel
 
     def __str__(self):
         return self.title
@@ -39,6 +41,12 @@ class Comment(models.Model):
         return f"Comment by {self.author.username}"
 
 
-# class Company(models.Model):
-#     name = models.CharField(max_length=200)
-#     manager = models.ForeignKey(User, on_delete=models.CASCADE)
+class Company(models.Model):
+    name = models.CharField(max_length=200)
+    manager = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name_plural = "Companies"  # For Admin Panel

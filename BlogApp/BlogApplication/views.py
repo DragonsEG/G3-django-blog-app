@@ -3,6 +3,8 @@ from . models import *
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, authenticate
 from . forms import *
+from django.http import HttpResponseForbidden
+
 # Create your views here.
 
 
@@ -34,7 +36,7 @@ def index(request):
 def editPost(request, pk):
 
     post = BlogPost.objects.get(id=pk)
-
+    # if request.user == post.author or request.user == request.user.is_superuser:
     form = BlogPostForm(instance=post)
 
     if request.method == 'POST':
@@ -44,18 +46,18 @@ def editPost(request, pk):
             return redirect('/')
     context = {'form': form, 'postID': pk}
     return render(request, 'BlogApplication/Edit.html', context)
+    # else:
+    # return HttpResponseForbidden("You are not authorized to edit this post.")
 
 
 def deletePost(request, pk):
     obj = BlogPost.objects.get(id=pk)
+    # if request.user == obj.author or request.user == request.user.is_superuser:
     obj.delete()
     return redirect("posts")
+    # else:
+    return HttpResponseForbidden("You are not authorized to delete this post.")
 
-def viewCategories(request):
-    context = {'categories': BlogCategory.objects.all()}
-    print(BlogCategory.objects.all())
-    print("sadassssssssssssssssssssssssssss")
-    return render(request, 'BlogApplication/Add.html', context)
 
 def addPost(request):
     context = {'success': False}
@@ -63,15 +65,19 @@ def addPost(request):
     if request.method == 'POST':
         _title = request.POST['title']
         _content = request.POST['content']
-        # _category = request.POST['category']
+        _category = request.POST['category']
 
         if request.POST.get('action') == 'Add':
             ins = BlogPost(title=_title, content=_content, author=request.user)
+            if _category:  # Check if a category was selected
+                ins.category = _category
             ins.save()
 
         elif request.POST.get('action') == 'Save Draft':
             ins = BlogPost(title=_title, content=_content,
                            author=request.user, draft=True)
+            if _category:  # Check if a category was selected
+                ins.category = _category
             ins.save()
 
         context = {'success': True}
@@ -84,6 +90,21 @@ def showCategories(request):
     return render(request, 'BlogApplication/ShowCategories.html', context)
 
 
+def chooseCategory(request):
+    context = {'categories': BlogCategory.objects.all()}
+    print(BlogCategory.objects.all())
+    return render(request, 'BlogApplication/Add.html', context)
+
+
+def createCompany(request):
+    if request.method == 'POST':
+        _name = request.POST['name']
+        _manager = request.user
+        ins = Company(name=_name, manager=_manager)
+        ins.save()
+    return render(request, 'BlogApplication/CreateCompany.html')
+
+
 def addCategory(request):
     context = {'success': False}
 
@@ -92,7 +113,8 @@ def addCategory(request):
         _description = request.POST['description']
 
         if request.POST.get('action') == 'Add':
-            ins = BlogCategory(name=_name, description=_description)
+            ins = BlogCategory(author=request.user,
+                               name=_name, description=_description)
             ins.save()
 
         context = {'success': True}
@@ -102,23 +124,25 @@ def addCategory(request):
 
 def deleteCategory(request, pk):
     obj = BlogCategory.objects.get(id=pk)
+    # if request.user == obj.author or request.user == request.user.is_superuser:
     obj.delete()
-    return redirect("posts")
+    return redirect("categories")
 
 
 def editCategory(request, pk):
 
     category = BlogCategory.objects.get(id=pk)
-
+    # if request.user == category.author or request.user == request.user.is_superuser:
     form = BlogCategoryForm(instance=category)
-
     if request.method == 'POST':
         form = BlogCategoryForm(request.POST, instance=category)
         if form.is_valid():
             form.save()
-            return redirect('/')
+            return redirect("categories")
     context = {'form': form, 'categoryID': pk}
     return render(request, 'BlogApplication/EditCategory.html', context)
+    # else:
+    # return HttpResponseForbidden("You are not authorized to edit this category.")
 
 
 def publishPost(request, pk):
