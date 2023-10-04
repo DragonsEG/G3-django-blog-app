@@ -10,6 +10,7 @@ urlpatterns = [
     path('delete/<int:pk>', views.deletePost, name='delete'),
     path('postDetails/<int:pk>', views.postDetails, name='details'),
     path('publishPost/<int:pk>', views.publishPost, name='publishPost'),
+    path('ShowCategories', views.showCategories, name='categories'),
     path('addaComment/<int:pk>', views.addComment, name='addComment'),
     path('addaCategory/', views.addCategory, name='addCategory'),
     path('editaCategory/<int:pk>', views.editCategory, name='editCategory'),

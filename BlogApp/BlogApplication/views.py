@@ -73,6 +73,11 @@ def addPost(request):
     return render(request, 'BlogApplication/Add.html', context)
 
 
+def showCategories(request):
+    context = {'categories': BlogCategory.objects.all()}
+    return render(request, 'BlogApplication/ShowCategories.html', context)
+
+
 def addCategory(request):
     context = {'success': False}
 
@@ -102,11 +107,11 @@ def editCategory(request, pk):
     form = BlogCategoryForm(instance=category)
 
     if request.method == 'POST':
-        form = BlogPostForm(request.POST, instance=category)
+        form = BlogCategoryForm(request.POST, instance=category)
         if form.is_valid():
             form.save()
             return redirect('/')
-    context = {'form': form, 'postID': pk}
+    context = {'form': form, 'categoryID': pk}
     return render(request, 'BlogApplication/EditCategory.html', context)
 
 

@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 
 
 class BlogCategory(models.Model):
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=200)
     description = models.TextField(null=True, blank=True)
 
