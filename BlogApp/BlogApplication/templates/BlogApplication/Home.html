@@ -5,7 +5,14 @@
 
     <div class="container">
       <div class="d-grid gap-2 w-75 flex-container justify-content-end mb-3">
-        {% if request.user.is_authenticated and request.user.company is not None %}
+        {% for company, users in company_users_dict.items %}
+          {% if request.user in users %}
+            <div class="d-flex">
+              <a href="{% url 'addPost' %}" class="btn btn-success mx-1">Add Post</a>
+            </div>
+          {% endif %}
+        {% endfor %}
+        {% if request.user.is_superuser %}
           <div class="d-flex">
             <a href="{% url 'addPost' %}" class="btn btn-success mx-1">Add Post</a>
           </div>

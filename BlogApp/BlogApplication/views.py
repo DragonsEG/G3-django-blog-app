@@ -29,7 +29,12 @@ def loginView(request):
 
 #####Posts
 def index(request):
-    context = {'posts': BlogPost.objects.all()}
+    companies = Company.objects.all()  # Retrieve all companies
+    company_users_dict = {}
+    for company in companies:
+        users_for_company = User.objects.filter(company=company)
+        company_users_dict[company] = users_for_company
+    context = {'posts': BlogPost.objects.all(), 'company_users_dict': company_users_dict}
     return render(request, 'BlogApplication/Home.html', context)
 
 
@@ -106,7 +111,12 @@ def publishPost(request, pk):
 
 #####Categories
 def showCategories(request):
-    context = {'categories': BlogCategory.objects.all()}
+    companies = Company.objects.all()  # Retrieve all companies
+    company_users_dict = {}
+    for company in companies:
+        users_for_company = User.objects.filter(company=company)
+        company_users_dict[company] = users_for_company
+    context = {'categories': BlogCategory.objects.all(), 'company_users_dict': company_users_dict}
     return render(request, 'BlogApplication/ShowCategories.html', context)
 
 

@@ -6,7 +6,18 @@
                 <h2 class="my-3">
                     Categories
                 </h2>
-                <a href="{% url 'addCategory' %}" class="btn btn-success mx-1">Add Category</a>
+                {% for company, users in company_users_dict.items %}
+                    {% if request.user in users %}
+                        <div class="d-flex">
+                            <a href="{% url 'addCategory' %}" class="btn btn-success mx-1">Add Category</a>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+                {% if request.user.is_superuser %}
+                    <div class="d-flex">
+                        <a href="{% url 'addCategory' %}" class="btn btn-success mx-1">Add Category</a>
+                    </div>
+                {% endif %}
             </div>
         </div>
         <ul class="my-4 w100 d-flex flex-column justify-content-center align-items-center">
