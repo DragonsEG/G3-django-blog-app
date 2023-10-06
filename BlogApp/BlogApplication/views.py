@@ -27,7 +27,12 @@ def loginView(request):
 
     return render(request, "BlogApplication/LoginPage.html", context={"form": form})
 
+
+def welcome(request):
+    return render(request, "BlogApplication/Welcome.html")
+
 #####Posts
+
 def index(request):
     companies = Company.objects.all()  # Retrieve all companies
     company_users_dict = {}

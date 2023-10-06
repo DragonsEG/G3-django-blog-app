@@ -1,0 +1,101 @@
+@for $i from 1 through 100 {
+  $percent: 1%;
+
+  .w-#{$i} {
+    width: #{$i * $percent};
+  }
+
+  .h-#{$i} {
+    height: #{$i * $percent};
+  }
+}
+
+@for $i from 1 through 100 {
+  .mt-#{$i} {
+    margin-top: #{$i * 10}px;
+  }
+
+  .ml-#{$i} {
+    margin-left: #{$i * 10}px;
+  }
+
+  .mr-#{$i} {
+    margin-right: #{$i * 10}px;
+  }
+
+  .mb-#{$i} {
+    margin-bottom: #{$i * 10}px;
+  }
+
+  .pt-#{$i} {
+    padding-top: #{$i * 10}px;
+  }
+
+  .pl-#{$i} {
+    padding-left: #{$i * 10}px;
+  }
+
+  .pr-#{$i} {
+    padding-right: #{$i * 10}px;
+  }
+
+  .pb-#{$i} {
+    padding-bottom: #{$i * 10}px;
+  }
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(55deg, #541f1f, #000000, #420000);
+  background-size: 200% 200%;
+  animation: gradient 7s ease-in-out infinite;
+  min-height: 100vh;
+  font-family: Arial, sans-serif;
+  color: #ddddddf7;
+}
+
+#navbar {
+  background: transparent;
+  transition: 0.5s ease-in-out;
+}
+
+.text-secondary {
+  color: #c0c0c0ca;
+}
+.ftr {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+}
+
+.form-control,
+.form-select {
+  background: transparent;
+  color: #ddddddf7;
+}
+
+.form-select:focus {
+  background: transparent;
+  color: #ddddddf7;
+}
+
+.opt {
+  background: transparent;
+  color: #ddddddf7;
+}
+.form-control:focus {
+  background: transparent;
+}
+
+.spn {
+  color: #44d9ca;
+}
+
+.nav-link:hover {
+  color: #44d9ca;
+}
+
+.welcome {
+}

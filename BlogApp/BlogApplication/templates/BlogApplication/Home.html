@@ -1,27 +1,27 @@
 {% extends 'BlogApplication/Base/Base.html' %}
 {% block container %}
   <div class="container my-3">
-    <h2 class="text-center">Post List</h2>
+    <h2 class="text-center hide">Post List</h2>
 
     <div class="container">
-      <div class="d-grid gap-2 w-100 flex-container justify-content-end mb-3">
+      <div class="d-grid gap-2 w-100 flex-container justify-content-end mb-3 hide">
         {% for company, users in company_users_dict.items %}
           {% if request.user in users %}
             <div class="d-flex">
-              <a href="{% url 'addPost' %}" class="btn btn-outline-success mx-1">Add Post</a>
+              <a href="{% url 'addPost' %}" class="btn add mx-1">Add Post</a>
             </div>
           {% endif %}
         {% endfor %}
         {% if request.user.is_superuser %}
           <div class="d-flex">
-            <a href="{% url 'addPost' %}" class="btn btn-outline-success mx-1">Add Post</a>
+            <a href="{% url 'addPost' %}" class="btn add mx-1">Add Post</a>
           </div>
         {% endif %}
       </div>
 
       {% for post in posts %}
         {% if post.draft and request.user.is_authenticated and post.author == request.user %}
-          <div class="container w-100 border rounded p-3 mb-3">
+          <div class="container w-100 border rounded p-3 mb-3 hidee">
             <div class="row">
               <div class="col-md-12">
                 <div class="flex-container d-flex mb-3">
@@ -30,10 +30,10 @@
                     <h5 class="text-danger">Draft</h5>
                   </h3>
                   <div class="d-grid gap-2 w-100 d-flex justify-content-end">
-                    <div>
-                      <a href="{% url 'publishPost' post.pk %}" class="btn btn-outline-success">Publish Post</a>
-                      <a href="{% url 'edit' post.pk %}" class="btn btn-outline-primary mx-1">Edit</a>
-                      <a href="{% url 'delete' post.pk %}" class="btn btn-outline-danger mx-1" onclick="return confirm('Are you sure you want to delete this post?');">Delete</a>
+                    <div class="d-flex">
+                      <a href="{% url 'publishPost' post.pk %}" class="btn add">Publish Post</a>
+                      <a href="{% url 'edit' post.pk %}" class="btn edt-outline mx-1">Edit</a>
+                      <a href="{% url 'delete' post.pk %}" class="btn dlt-outline mx-1" onclick="return confirm('Are you sure you want to delete this post?');">Delete</a>
                     </div>
                   </div>
                 </div>
@@ -46,56 +46,59 @@
             </div>
           </div>
         {% elif not post.draft %}
-          <div class="container w-100 border rounded p-3 mb-3">
-            <div class="row">
-              <div class="col-md-12">
-                <div class="flex-container d-flex mb-3">
-                  <h3 class="text-left d-inline-flex w-50">{{ post.title }}</h3>
-                  <div class="d-grid gap-2 w-50 d-flex justify-content-end">
-                    {% if request.user.is_authenticated %}
-                      {% if post.author == request.user or request.user.is_superuser %}
-                        <div>
-                          <a href="{% url 'edit' post.pk %}" class="btn btn-outline-primary mx-1">Edit</a>
-                          <a href="{% url 'delete' post.pk %}" class="btn btn-outline-danger mx-1" onclick="return confirm('Are you sure you want to delete this post?');">Delete</a>
-                        </div>
+          {% if forloop.counter|divisibleby:2 or forloop.counter == 0 %}
+            <div class="container w-100 border rounded p-3 mb-3 hideR">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="flex-container d-flex mb-3">
+                    <h3 class="text-left d-inline-flex w-50">{{ post.title }}</h3>
+                    <div class="d-grid gap-2 w-50 d-flex justify-content-end">
+                      {% if request.user.is_authenticated %}
+                        {% if post.author == request.user or request.user.is_superuser %}
+                          <div class="d-flex">
+                            <a href="{% url 'edit' post.pk %}" class="btn edt-outline mx-1">Edit</a>
+                            <a href="{% url 'delete' post.pk %}" class="btn dlt-outline mx-1" onclick="return confirm('Are you sure you want to delete this post?');">Delete</a>
+                          </div>
+                        {% endif %}
                       {% endif %}
-                    {% endif %}
-                  </div>
-                </div>
-                <p>
-                  {{ post.content|truncatewords:20 }}
-                  <a href="{% url 'details' post.pk %}" class="text-primary d-inline-block">Read More</a>
-                </p>
-                <p class="d-block text-secondary">{{ post.pupDate }}</p>
-              </div>
-            </div>
-          </div>
-        {% endif %}
-      {% endfor %} {% comment %} {% for post in posts %}
-        <div class="container w-50 border rounded p-3 mb-3">
-          <!-- ^^^ Add border and padding classes here -->
-          <div class="row">
-            <div class="col-md-12">
-              <div class="flex-container d-flex mb-3">
-                <h3 class="text-left d-inline-flex w-50">{{ post.title }}</h3>
-                <div class="d-grid gap-2 w-50 d-flex justify-content-end">
-                  {% if request.user.is_authenticated %}
-                    <div>
-                      <a href="{% url 'edit' post.pk %}" class="btn btn-primary mx-1">Edit</a>
-                      <a href="{% url 'delete' post.pk %}" class="btn btn-danger mx-1">Delete</a>
                     </div>
-                  {% endif %}
+                  </div>
+                  <p>
+                    {{ post.content|truncatewords:20 }}
+                    <a href="{% url 'details' post.pk %}" class="text-primary d-inline-block">Read More</a>
+                  </p>
+                  <p class="d-block text-secondary">{{ post.pupDate }}</p>
                 </div>
               </div>
-              <p>
-                {{ post.content|truncatewords:20 }}
-                <a href="{% url 'details' post.pk %}" class="text-primary">Read More</a>
-              </p>
-              <p>{{ post.pupDate }}</p>
             </div>
-          </div>
-        </div>
-      {% endfor %} {% endcomment %}
+          {% elif forloop.counter|divisibleby:1 %}
+            <div class="container w-100 border rounded p-3 mb-3 hideL">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="flex-container d-flex mb-3">
+                    <h3 class="text-left d-inline-flex w-50">{{ post.title }}</h3>
+                    <div class="d-grid gap-2 w-50 d-flex justify-content-end">
+                      {% if request.user.is_authenticated %}
+                        {% if post.author == request.user or request.user.is_superuser %}
+                          <div class="d-flex">
+                            <a href="{% url 'edit' post.pk %}" class="btn edt-outline mx-1">Edit</a>
+                            <a href="{% url 'delete' post.pk %}" class="btn dlt-outline mx-1" onclick="return confirm('Are you sure you want to delete this post?');">Delete</a>
+                          </div>
+                        {% endif %}
+                      {% endif %}
+                    </div>
+                  </div>
+                  <p>
+                    {{ post.content|truncatewords:20 }}
+                    <a href="{% url 'details' post.pk %}" class="text-primary d-inline-block">Read More</a>
+                  </p>
+                  <p class="d-block text-secondary">{{ post.pupDate }}</p>
+                </div>
+              </div>
+            </div>
+          {% endif %}
+        {% endif %}
+      {% endfor %}
     </div>
   </div>
 {% endblock %}

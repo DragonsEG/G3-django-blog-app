@@ -1,0 +1,9 @@
+{% extends 'BlogApplication/Base/Base.html' %}
+{% block container %}
+  <div class="container welcome text-center mt-12 hide">
+    <h1>Welcome to Our Modern Blog</h1>
+    <p class="mt-5 mb-5">Explore our latest posts and join the discussion.</p>
+
+    <a href="{% url 'posts' %}" class="button">Visit Blog</a>
+  </div>
+{% endblock %}

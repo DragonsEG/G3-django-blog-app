@@ -2,7 +2,7 @@
 {% block container %}
     <div class="container d-flex flex-column align-items-center justify-content-center">
       
-        <div class="row mt-3">
+        <div class="row mt-3 hide">
           <div
             class="col-md-12 d-flex justify-content-center align-items-center flex-column"
           >
@@ -20,30 +20,40 @@
         <div class="row mt-3 w-100">
           <div class="col-md-12">
             <div class="flex-container d-flex mb-3">
-                <h3 class="text-left d-inline-flex w-100 ml-5">Comments</h3>
+                <h3 class="text-left d-inline-flex w-100 hide">Comments</h3>
                 <div class="container my-3">
                   {% comment %} <h2 class="text-center">Add a Comment</h2> {% endcomment %}
                   
                 </div>
             </div>
           </div>
-          <div class="d-flex flex-column justify-content-center align-items-center w-100 ml-5">
+          <div class="d-flex flex-column justify-content-center align-items-center w-100">
               {% for comment in comments %}
-              <div class="card mb-3 w-100 bg-transparent border">
-                  <div class="card-body">
-                      <h5 class="card-title text-white">{{ comment.author }}</h5>
-                      <p class="card-text text-white">{{ comment.content }}</p>
-                      <p class="card-text text-secondary">{{ comment.pupDate }}</p>
+                {% if forloop.counter|divisibleby:2 or forloop.counter == 0 %}
+                  <div class="card mb-3 w-100 bg-transparent border hideR">
+                    <div class="card-body">
+                        <h5 class="card-title text-white">{{ comment.author }}</h5>
+                        <p class="card-text text-white">{{ comment.content }}</p>
+                        <p class="card-text text-secondary">{{ comment.pupDate }}</p>
+                    </div>
                   </div>
-              </div>
+                {% else %}
+                  <div class="card mb-3 w-100 bg-transparent border hideL">
+                    <div class="card-body">
+                        <h5 class="card-title text-white">{{ comment.author }}</h5>
+                        <p class="card-text text-white">{{ comment.content }}</p>
+                        <p class="card-text text-secondary">{{ comment.pupDate }}</p>
+                    </div>
+                  </div>
+                {% endif %}
               {% empty %}
-              <p>No comments yet.</p>
+              <p class="hide" >No comments yet.</p>
               {% endfor %}
               {% if request.user.is_authenticated %}
               <form method="post" action="{% url 'addComment' post.pk %}" class="w-100">
                 {% csrf_token %}
                 {{ form.as_p }}
-                <div class="d-flex justify-content-between">
+                <div class="d-flex justify-content-between hide">
                   <textarea id="comment-input" name="content" class="form-control  mb-3 mr-auto w-75" rows="1" placeholder="Enter your comment..."></textarea>
                   <div>
                     <button type="submit" class="btn btn-outline-success ml-1  h-75">Add Comment</button>

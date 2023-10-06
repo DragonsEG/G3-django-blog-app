@@ -1,0 +1,41 @@
+@mixin hide() {
+  opacity: 0;
+  filter: blur(1px);
+  transition: all 1.5s;
+}
+
+.hide {
+  @include hide();
+}
+
+.hidee {
+  @include hide();
+}
+
+.hideR {
+  transform: translateX(40%);
+  @include hide();
+}
+
+.hideL {
+  transform: translateX(-40%);
+  @include hide();
+}
+
+.show {
+  opacity: 1;
+  filter: blur(0);
+  transform: translateX(0);
+}
+
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}

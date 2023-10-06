@@ -1,23 +1,25 @@
 {% extends "BlogApplication/Base/Base.html" %} 
 {% block container %}
-  <div class="container">
+  <div class="container mt-10">
     <h1>Edit Task</h1>
-    <form method='post'>
+    <form method='post' class="mb-5">
         {% csrf_token %}
       <div class="form-group">
         <label for="taskTitle">Task Title</label>
         {{form.title}}
       </div>
-      <div class="form-group">
+      <div class="form-group  my-2">
         <label for="taskDescription">Task Description</label></br>
         {{form.content}}
       </div>
       <div class="mb-3 my-4">
-        <label class="form-label">Category</label>
+        <label class="form-label my-2">Category</label>
         {{form.category}}
       </div>
-      <button type="submit" class="btn btn-outline-primary">Save Changes</button>
-      <a href = "{%url 'delete' pk=postID%}" class="btn btn-outline-danger mx-1" onclick="return confirm('Are you sure you want to delete this post?');">Delete This Post</a>
+      <div class="d-flex justify-content-between">
+        <button type="submit" class="btn edt">Save Changes</button>
+        <a href = "{%url 'delete' pk=postID%}" class="btn dlt mx-1" onclick="return confirm('Are you sure you want to delete this post?');">Delete This Post</a>
+      </div>
     </form>
   </div>
 {% endblock %}
