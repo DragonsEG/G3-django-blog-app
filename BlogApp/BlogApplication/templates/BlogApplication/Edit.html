@@ -12,8 +12,12 @@
         <label for="taskDescription">Task Description</label></br>
         {{form.content}}
       </div>
-      <button type="submit" class="btn btn-primary">Save Changes</button>
-      <a href = "{%url 'delete' pk=postID%}" class="btn btn-danger mx-1" onclick="return confirm('Are you sure you want to delete this post?');">Delete This Post</a>
+      <div class="mb-3 my-4">
+        <label class="form-label">Category</label>
+        {{form.category}}
+      </div>
+      <button type="submit" class="btn btn-outline-primary">Save Changes</button>
+      <a href = "{%url 'delete' pk=postID%}" class="btn btn-outline-danger mx-1" onclick="return confirm('Are you sure you want to delete this post?');">Delete This Post</a>
     </form>
   </div>
 {% endblock %}

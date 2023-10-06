@@ -1,0 +1,55 @@
+body {
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(55deg, #541f1f, #000000, #420000);
+  background-size: 200% 200%;
+  animation: gradient 7s ease-in-out infinite;
+  min-height: 100vh;
+  font-family: Arial, sans-serif;
+  color: #ddddddf7;
+}
+
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+.text-secondary {
+  color: #c0c0c0ca;
+}
+.ftr {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+}
+.cntnt {
+  min-height: calc(100% - (height of footer));
+}
+
+.form-control,
+.form-select {
+  background: transparent;
+  color: #ddddddf7;
+}
+.opt {
+  background: transparent;
+  color: #ddddddf7;
+}
+.form-control:focus {
+  background: transparent;
+}
+
+.spn {
+  color: #44d9ca;
+}
+
+.nav-link:hover {
+  color: #44d9ca;
+}

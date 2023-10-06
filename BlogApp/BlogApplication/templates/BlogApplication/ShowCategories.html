@@ -2,33 +2,33 @@
 {% block container %}
     <div class="container ">
         <div class="w-100 my-4 d-flex flex-column justify-content-center align-items-center">
-            <div class="w-50 d-flex justify-content-between align-items-center">
+            <div class="w-100 d-flex justify-content-between align-items-center">
                 <h2 class="my-3">
                     Categories
                 </h2>
                 {% for company, users in company_users_dict.items %}
                     {% if request.user in users %}
                         <div class="d-flex">
-                            <a href="{% url 'addCategory' %}" class="btn btn-success mx-1">Add Category</a>
+                            <a href="{% url 'addCategory' %}" class="btn btn-outline-success mx-1">Add Category</a>
                         </div>
                     {% endif %}
                 {% endfor %}
                 {% if request.user.is_superuser %}
                     <div class="d-flex">
-                        <a href="{% url 'addCategory' %}" class="btn btn-success mx-1">Add Category</a>
+                        <a href="{% url 'addCategory' %}" class="btn btn-outline-success mx-1">Add Category</a>
                     </div>
                 {% endif %}
             </div>
         </div>
-        <ul class="my-4 w100 d-flex flex-column justify-content-center align-items-center">
+        <ul class="my-4 w-100 d-flex flex-column justify-content-center align-items-center">
         {% for category in categories  %}
 
-            <li class="w-50 my-2 d-flex justify-content-between">
+            <li class="w-100 my-2 d-flex justify-content-between">
                 <h4 class = 'mb-4'>{{category.name}}</h4>
                 <div>
                     {% if request.user.is_superuser or user.is_authenticated and user == category.author %}
-                    <a href="{% url 'editCategory' category.pk %}" class="btn btn-primary mx-1">Edit</a>
-                    <a href="{% url 'deleteCategory' category.pk %}" class="btn btn-danger mx-1" onclick="return confirm('Are you sure you want to delete this post?');">Delete</a>
+                    <a href="{% url 'editCategory' category.pk %}" class="btn btn-outline-primary mx-1">Edit</a>
+                    <a href="{% url 'deleteCategory' category.pk %}" class="btn btn-outline-danger mx-1" onclick="return confirm('Are you sure you want to delete this post?');">Delete</a>
                     {% endif %}
                 </div>
             </li>

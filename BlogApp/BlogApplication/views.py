@@ -72,6 +72,7 @@ def addPost(request):
 def editPost(request, pk):
 
     post = BlogPost.objects.get(id=pk)
+    categories = BlogCategory.objects.all()
     # if request.user == post.author or request.user == request.user.is_superuser:
     form = BlogPostForm(instance=post)
 
@@ -80,7 +81,7 @@ def editPost(request, pk):
         if form.is_valid():
             form.save()
             return redirect('/')
-    context = {'form': form, 'postID': pk}
+    context = {'form': form, 'postID': pk, 'categories': categories}
     return render(request, 'BlogApplication/Edit.html', context)
     # else:
     # return HttpResponseForbidden("You are not authorized to edit this post.")
