@@ -34,12 +34,6 @@
   z-index: 0;
 }
 
-@media (min-width: 768px) {
-  .button {
-    padding: 19px 32px;
-  }
-}
-
 .button:before,
 .button:after {
   border-radius: 80px;
@@ -90,30 +84,10 @@
   opacity: 0;
 }
 
-.button:active:not(:disabled) {
-  color: #ccc;
-}
-
-.button:active:not(:disabled):before {
-  background-image: linear-gradient(
-      0deg,
-      rgba(0, 0, 0, 0.2),
-      rgba(0, 0, 0, 0.2)
-    ),
-    linear-gradient(92.83deg, #ff7426 0, #f93a13 100%);
-}
-
-.button:active:not(:disabled):after {
-  background-image: linear-gradient(#541a0f 0, #0c0d0d 100%);
-  bottom: 4px;
-  left: 4px;
-  right: 4px;
-  top: 4px;
-}
-
-.button:disabled {
-  cursor: default;
-  opacity: 0.24;
+@media (min-width: 768px) {
+  .button {
+    padding: 19px 32px;
+  }
 }
 
 @mixin btn() {

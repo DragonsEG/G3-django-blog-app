@@ -1,6 +1,22 @@
 from django import forms
 from . models import *
+from django.contrib.auth.forms import AuthenticationForm
 
+class CustomAuthenticationForm(AuthenticationForm):
+    remember_me = forms.BooleanField(
+        required=False,
+        initial=True,
+        widget=forms.CheckboxInput(attrs={'class': 'form-check-input'}),
+    )
+    class Meta:
+        model = User  
+        fields = ['username', 'password']
+
+    def __init__(self, *args, **kwargs):
+        super(CustomAuthenticationForm, self).__init__(*args, **kwargs)
+        # Add the 'form-control' class to the widgets of specific fields
+        self.fields['username'].widget.attrs['class'] = 'form-control text-light'
+        self.fields['password'].widget.attrs['class'] = 'form-control text-light'
 
 class BlogPostForm(forms.ModelForm):
     class Meta:
@@ -11,9 +27,9 @@ class BlogPostForm(forms.ModelForm):
         super(BlogPostForm, self).__init__(*args, **kwargs)
 
         # Add the 'form-control' class to the widgets of specific fields
-        self.fields['title'].widget.attrs['class'] = 'form-control my-2'
-        self.fields['content'].widget.attrs['class'] = 'form-control my-2'
-        self.fields['category'].widget.attrs['class'] = 'form-control my-2'
+        self.fields['title'].widget.attrs['class'] = 'form-control'
+        self.fields['content'].widget.attrs['class'] = 'form-control'
+        self.fields['category'].widget.attrs['class'] = 'form-control'
 
 class BlogCategoryForm(forms.ModelForm):
     class Meta:

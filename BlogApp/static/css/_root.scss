@@ -43,6 +43,11 @@
     padding-bottom: #{$i * 10}px;
   }
 }
+@for $i from 1 through 30 {
+  .fs-#{$i} {
+    font-size: #{$i * 1px};
+  }
+}
 
 body {
   margin: 0;
@@ -75,6 +80,12 @@ body {
   background: transparent;
   color: #ddddddf7;
 }
+
+.form-select:focus {
+  background: transparent;
+  color: #ddddddf7;
+}
+
 .opt {
   background: transparent;
   color: #ddddddf7;
